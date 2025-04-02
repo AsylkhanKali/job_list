@@ -1,0 +1,44 @@
+<!-- templates/results.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Results - JobScraper</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h2 class="mb-4">Results for "{{ search_term }}"</h2>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Title</th>
+                        <th>Company</th>
+                        <th>Location</th>
+                        <th>Salary</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if jobs|length == 0 %}
+                        <tr>
+                            <td colspan="5" class="text-center">No jobs found</td>
+                        </tr>
+                    {% else %}
+                        {% for job in jobs %}
+                        <tr>
+                            <td>{{ job.title }}</td>
+                            <td>{{ job.company }}</td>
+                            <td>{{ job.location }}</td>
+                            <td>{{ job.salary or 'N/A' }}</td>
+                            <td><a href="{{ job.job_url }}" target="_blank" class="btn btn-sm btn-outline-primary">View</a></td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <a href="/" class="btn btn-secondary mt-3">New Search</a>
+    </div>
+</body>
+</html>
